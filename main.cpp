@@ -9,6 +9,9 @@ int main() {
         if(tok.data=="EOF"){break;}
         else{cout<<tok.Class<<" "<<tok.data<<endl;}
     }
-
+    int a;
+    cin >>a;
+    
     return 0;
+    
 }
