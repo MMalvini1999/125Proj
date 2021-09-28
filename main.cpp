@@ -9,6 +9,6 @@ int main() {
         if(tok.data=="EOF"){break;}
         else{cout<<tok.Class<<" "<<tok.data<<endl;}
     }
-
+    delete myLexer;
     return 0;
 }

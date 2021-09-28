@@ -1,8 +1,9 @@
 #include <iostream>
 #include <fstream>
+#include<string>
 #include "Lexer.h"
 using namespace std;
-
+////////////////////Linked List Functions///////////////////////////////////////
 linked_list::linked_list(){
     head = tail = NULL;
 }
@@ -50,7 +51,7 @@ void linked_list::pop(){
     head = temp->next;
     delete temp;
 };
-
+//////////////////////////////Lexer Functions////////////////////////////////////
 Lexer::Lexer(){
     List = new linked_list();
     string fileName, input;
@@ -59,6 +60,7 @@ Lexer::Lexer(){
     ifstream myFile;
     myFile.open(fileName);
     if(myFile.is_open()) {
+        int line = 1;
         while (getline(myFile, input)) {
             int length = input.length();
             for (int i = 0; i < length; i++) {
@@ -70,9 +72,13 @@ Lexer::Lexer(){
                     {
                         if(j< length-1){N=input[j+1];}else{N=32;}
                         T = T + input[j];
-                        //Check specifically for single length terminals.
+                        //Check specifically for single length terminals. And Errors.
                         if (T.length() == 1) {if (isTokenL1(T,N)) {
                             List->push(T, getLabel(T)); i=j; j=length;
+                            if(List->tail->Class == "ERROR"){
+                                List->tail->Class ="Error on line "+to_string(line);
+                                myFile.close();
+                                j=length;i=length;}
                             }}
                         else
                         if (T.length() == 2) {if (isTokenL2(T,N)) {
@@ -84,13 +90,13 @@ Lexer::Lexer(){
                             }}
                     }
                 }
-            }
+            } line++;
         }
     }
     myFile.close();
     List->push("EOF"," ");
-
 }
+Lexer::~Lexer() {delete List;}
 Token Lexer::getNextToken() {
     Token tok(List->head->data, List->head->Class);
     List->pop();
@@ -99,13 +105,16 @@ Token Lexer::getNextToken() {
 
 //Checks a potential token of length 1, and compares to next value following it.
 bool Lexer::isTokenL1(string T, char N) {
+    //If any unknown character is found isolate and token will be labeled with an error.
+    if((T[0]>33 && T[0]<38) || T[0]==39 || T[0]==44||T[0]==58||T[0]==63||T[0]==64){return true;}
+    if(T[0]==91||T[0]==93||T[0]==94||T[0]==96||T[0]==126){return true;}
     //cout<<T<<endl;
     //If T is "=" can only be partial token if N is also "=", else T is token.
     if(T[0]==61 && N!=61){return true;}
     //If T is "()*+-" return true
     if(T[0]>39 && T[0]<44){return true;}
     //If T is "- / ; { }" return true
-    if(T[0]==45||T[0]==47||T[0]==59||T[0]==123||T[0]==125||T[0]==60){return true;}
+    if(T[0]==45||T[0]==47||T[0]==59||T[0]==123||T[0]==125){return true;}
     //If T is a Letter followed by a non letter except "_" return true;
     if(isLetter(T[0]) && isChar(N) && N!=95){return true;}
     //if T is a digit followed by a non digit or not "." return true
@@ -142,8 +151,13 @@ bool Lexer::isTokenL3plus(string input, char N) {
     if(isLetter(input[0]) &&(isChar(N) && N!=95)){return true;}
     return false;
 }
+//////////////////////////////////Helper Functions////////////////////////////////////////////////////
 
 string getLabel(string input){
+    if((input[0]>33 && input[0]<38) || input[0]==39 || input[0]==44){return "ERROR";}
+    if(input[0]==58||input[0]==63||input[0]==64||input[0]==91){return "ERROR";}
+    if(input[0]==93||input[0]==94||input[0]==96||input[0]==126){return "ERROR";}
+
     string C[] = {"(",")","*","+","-","/",";","{","}","<","=",">"};
 
     string E[][2] = {
