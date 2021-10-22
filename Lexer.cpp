@@ -1,6 +1,6 @@
 #include <iostream>
 #include <fstream>
-#include<string>
+#include <string>
 #include "Lexer.h"
 using namespace std;
 ////////////////////Linked List Functions///////////////////////////////////////
