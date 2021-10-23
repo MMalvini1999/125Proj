@@ -49,7 +49,7 @@ public:
 class Prog{
 public:
     Block B;
-    Prog(Block b){B=b;}
+    Prog(){B=b;}
 
 };
 
