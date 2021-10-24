@@ -1,9 +1,8 @@
 #ifndef INC_125PROJ_PARSER_H
 #define INC_125PROJ_PARSER_H
-#include "Lexer.h"
 #include <vector>
-
-
+#include "Lexer.h"
+#include "Stmt.h"
 
 
 class Decl{
@@ -14,52 +13,69 @@ public:
     std::string id;
 };
 
+/////////////////////////////////////////////////////////
+
 class SymTab{
 public:
-    SymTab(Decl d){push(d);}
+    SymTab();
+    SymTab(SymTab* T){prev = T;};
+    SymTab* prev;
     std::vector<Decl> D;
     void push(Decl d){ D.push_back(d);};
 
-    bool inTable(std::string I){
-        int i=0;
-        while(i<D.size()){if(D[i].id == I){return true; }}
-    }
-
-    std::string findType(std::string I){
-        int i=0;
-        while(i<D.size()){if(D[i].id == I){return D[i].type; }}
-    }
-    SymTab* Prev;
+    bool inTable(std::string I){ int i=0; while(i<D.size()){if(D[i].id == I){return true; }}}
+    std::string findType(std::string I){ int i=0; while(i<D.size()){if(D[i].id == I){return D[i].type; }}}
 };
+//////////////////////////////////////////////////////////////////////
+class incdecexpr{public: incdecexpr(linked_list list, SymTab* T, int Depth);};
+class factor    {public: factor(linked_list list, SymTab* T, int Depth);};
+class term      {public: term(linked_list list, SymTab* T, int Depth);};
+class expr      {public: expr(linked_list list, SymTab* T, int Depth);};
+class rel       {public: rel(linked_list list, SymTab* T, int Depth); };
+class equal     {public: equal(linked_list list, SymTab* T, int Depth);};
+class andexpr   {public: andexpr(linked_list list, SymTab* T, int Depth);};
+class allexpr   {public: allexpr(linked_list list, SymTab* T, int Depth);};
 
+////////////////////////////////////////////////////////////////////////
 class Stmt{
 public:
+    Stmt(linked_list list, SymTab* T, int D){sTable = T; Depth = D;};
+    SymTab* sTable;
+    int Depth;
+    Stmt1* S1;
+    Stmt2* S2;
 
 };
+
+////////////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////////////
 
 class Block{
     friend class Prog;
+    friend class linked_list;
 public:
-    Block();
+    Block(int D){Depth = D;};
+    Block(SymTab* T);
     std::vector<Stmt> St;
-    void push(Stmt s){ St.push_back(s);};
-    SymTab Table;//Fix by creating different .h file;
+    SymTab Table;
+    int Depth;
+    void Scan4Stmt(linked_list List){
+        //Scan for end of stmt or check for declaration
+        //Add newly created Decl to sym Table
+        // or Add newly created stmt to stmt Vector
+    };
+
+
 };
 
 class Prog{
 public:
-    Block B;
-    Prog(){B=b;}
+    Block* B;
+    Prog(Block* b){B=b;}
+    int Depth = 0;
 
 };
 
 #endif //INC_125PROJ_PARSER_H
 
-
-Block
-  |
-Stmt - Tok - Tok - Term - Tok -Term -{Block} - else- -------{Block} - ;
-  |                                     |                      |
-Stmt                                  Stmt-Tok-Term-Tok;      Stmt-Tok-Term;
-  |
-Stmt

@@ -37,9 +37,11 @@ void linked_list::push(string input, string Class){
         tail = temp;
         tail->next = NULL;
         head->next = tail;
+        tail->prev=head;
     }
     else {
         tail->next = temp;
+        temp->prev = tail;
         tail = temp;
         tail->next = NULL;
     }
@@ -51,6 +53,28 @@ void linked_list::pop(){
     head = temp->next;
     delete temp;
 };
+
+linked_list linked_list::split(int position){
+    Token* temp = head;
+    int SZ = listSize();
+    int pos = 0;
+    if(position >= SZ){throw 1;}
+    while(pos< position){
+        pos++;
+        temp=temp->next;
+    }
+    linked_list new_list;
+    if(position == 0){ new_list.head = head; new_list.tail = tail; tail = head = nullptr; }
+    else {
+        new_list.head = temp;
+        new_list.tail = tail;
+        tail = temp->prev;
+        tail->next = nullptr;
+        new_list.head->prev = nullptr;
+    }
+    return new_list;
+
+}
 //////////////////////////////Lexer Functions////////////////////////////////////
 Lexer::Lexer(){
     List = new linked_list();
@@ -97,9 +121,15 @@ Lexer::Lexer(){
     List->push("EOF"," ");
 }
 Lexer::~Lexer() {delete List;}
+
 Token Lexer::getNextToken() {
-    Token tok(List->head->data, List->head->Class);
-    List->pop();
+    int i=0;
+    Token* temp = List->head;
+    while (i<bookmark && temp ) {
+        temp = temp->next;
+        i++;
+    }
+    Token tok(temp->data, temp->Class);
     return tok;
 }
 

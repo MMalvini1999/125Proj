@@ -2,14 +2,15 @@
 #ifndef INC_125PROJ_LEXER_H
 #define INC_125PROJ_LEXER_H
 #include <string>
-#include "Parser.h"
+
 using namespace std;
 class Token {
 public:
     Token *next;
+    Token *prev;
     std::string data;
     std::string Class;
-    Token(string data, string Class) : data(data),Class(Class), next(nullptr){};
+    Token(string data, string Class) : data(data),Class(Class), next(nullptr), prev(nullptr){};
 };
 
 class linked_list {
@@ -21,6 +22,7 @@ public:
     int listSize();
     void push(string input, string Class);
     void pop();
+    linked_list split(int pos);
 };
 
 class Lexer {
@@ -28,7 +30,7 @@ class Lexer {
 public:
     Lexer();
     ~Lexer();
-
+    int bookmark = 0;
     Token getNextToken();
     bool isTokenL1(string T, char N);
     bool isTokenL2(string input, char N);
