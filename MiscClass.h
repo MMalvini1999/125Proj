@@ -11,7 +11,7 @@ class andexpr;
 
 class allexpr   {
     //allexpr || andexpr | andexpr
-public: allexpr(linked_list list, SymTab* T, int D){sTable = T, Depth = D;LIST = list;}
+public: allexpr(linked_list* list, SymTab* T, int D){sTable = T, Depth = D;LIST = list;}
     linked_list LIST;
     int Depth;
     SymTab* sTable;

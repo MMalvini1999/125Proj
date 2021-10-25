@@ -2,102 +2,62 @@
 #define INC_125PROJ_PARSER_H
 #include <vector>
 #include "Lexer.h"
-#include "Stmt.h"
+#include "Statement.h"
+#include "SymTab.h"
+#include "Decl.h"
 
-class Decl{
-    friend class SymTab;
-public:
-    Decl(std::string T, std::string I){type = T; id = I;}
-    std::string type;
-    std::string id;
-};
-
-/////////////////////////////////////////////////////////
-
-class SymTab{
-public:
-    SymTab();
-    SymTab(SymTab* T){prev = T;};
-    SymTab* prev;
-    std::vector<Decl> D;
-    void push(Decl d){ D.push_back(d);};
-
-    bool inTable(std::string I){ int i=0; while(i<D.size()){if(D[i].id == I){return true; }}}
-    std::string findType(std::string I){ int i=0; while(i<D.size()){if(D[i].id == I){return D[i].type; }}}
-};
-//////////////////////////////////////////////////////////////////////
-class incdecexpr //id++ | id-- //no pointer
-        {
-        public: incdecexpr(linked_list list, SymTab* T, int Depth);
-            //identify ID and ++, --
-            *incdecexpr plus;
-            *incdecexpr minus;
-            *incdecexpr token;
-        };
-
-class factor //(allexpr) | incdecexpr | id | num | real | true | false
-        {
-        public: factor(linked_list list, SymTab* T, int Depth);
-            *factor allexpr;
-            *factor indecexpr;
-            *factor ID;
-            *factor real;
-            *factor num;
-            *factor True;
-            *factor False;
-        };
-class term
-        {
-        public: term(linked_list list, SymTab* T, int Depth);
-            *term term;
-            *term factor;
-            string divide [10];
-            string multiply [10];
-        };
-class expr      {public: expr(linked_list list, SymTab* T, int Depth);};
-class rel       {public: rel(linked_list list, SymTab* T, int Depth); };
-class equal     {public: equal(linked_list list, SymTab* T, int Depth);};
-class andexpr   {public: andexpr(linked_list list, SymTab* T, int Depth);};
-class allexpr   {public: allexpr(linked_list list, SymTab* T, int Depth);};
-
-////////////////////////////////////////////////////////////////////////
-class Stmt{
-public:
-    Stmt(linked_list list, SymTab* T, int D){sTable = T; Depth = D;};
-    SymTab* sTable;
-    int Depth;
-    Stmt1* S1;
-    Stmt2* S2;
-    Stmt3* S3;
-};
-
-////////////////////////////////////////////////////////////////////
-
-//////////////////////////////////////////////////////////////////////
+//Block object should pass a complete statement into stmt class
+//Class will determine what type of stmt it is, create a new stmt depending on type.
 
 class Block{
-    friend class Prog;
     friend class linked_list;
 public:
-    Block(int D){Depth = D;};
-    Block(SymTab* T);
+    Block(int D){Depth = D; Table = new SymTab();};
+    Block(int D, SymTab* T){Depth = D; Table = new SymTab(); Table->prev = T;}
     std::vector<Stmt> St;
-    SymTab Table;
+    SymTab* Table;
     int Depth;
-    void Scan4Stmt(linked_list List){
-        //Scan for end of stmt or check for declaration
-        //Add newly created Decl to sym Table
-        // or Add newly created stmt to stmt Vector
+    void Scan4Stmt_Decl(linked_list* List){
+        linked_list* T = List->split_set(1, List->listSize()-1);
+        Token* temp = T->head;
+        bool Ty, I, S;//Type, ID , Semicolon
+        string ty, ID, Semi;
+        for(int i=0;i<3; i++){
+            if(i==0 && temp->get_class()=="BASE_TYPE"){ Ty=true;ty=temp->get_data();}
+            if(i==1 && temp->get_class()=="id"){ I=true;ID=temp->get_data();}
+            if(i==2 && temp->get_class()==";"){ S=true;};
+            temp = temp->next;}
+        if(Ty && I && S){
+            T->pop();T->pop();T->pop();
+            Decl* TEMP = new Decl(ty,ID);
+            Table->push(TEMP);
+            Scan4Stmt_Decl(T);
+        }
+        else
+        {
+
+        }
     };
+    void printBlock();
 };
 
 class Prog{
 public:
+    Prog(){B= new Block(1);}
     Block* B;
-    Prog(Block* b){B=b;}
     int Depth = 0;
+    void PrintProg();
+};
+
+class Parser{
+public:
+    Parser(Lexer* L){Lex=L; Data = Lex->List;};
+    Lexer* Lex;
+    linked_list* Data;
+    void PrintTree();
 
 };
+
 
 #endif //INC_125PROJ_PARSER_H
 

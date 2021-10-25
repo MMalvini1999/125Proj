@@ -8,44 +8,54 @@
 
 class Stmt1{
     //Assign
-    Stmt1(linked_list list, SymTab* T, int D){ sTable = T; Depth = D;}
+    Stmt1(linked_list list, SymTab* T, int D)
     int Depth;
     SymTab* sTable;
     string ID;
-    allexpr* allExpression;
-
-    Stmt1.obj; //class object
-    void crtAssign(linked_list list, SymTab* T, int D);
-    void printStmt1(linked_list list, SymTab* T, int D); //Prints "|" according to depth, and the corresponding components. ID, allexpr.
+    allexpr* allExpression; //pointer to object
+    linked_list* LIST; //pointer to object
+    void crtAssign(linked_list* list, SymTab* T, int D); //function needs to call split function for linked list
+    void printStmt1(linked_list* list, SymTab* T, int D); //Prints "|" according to depth, and the corresponding components. ID, allexpr.
 };
-Stmt1 () //constructor
+Stmt1(linked_list list, SymTab* T, int D) //constructor
 {
-    new allExpression=allexpr;
-    new sTable=SymTab;
-};
+    sTable = T; Depth = D; list=LIST;
+    allExpression= new allexpr(sTable, Depth, list); //goes into function body (
+}
 
+void crtAssign (linked_list* list, SymTab* T, int D)
+{
+    Token *temp=list->head;
+    while (temp->next)
+    {
+        if(temp->get_data()== "("
+    }
+
+}
+
+void printStmt1(linked_list* list, SymTab* T, int D)
+{}
 ////////////////////////////////////////////////////////////////////
 class Stmt2 {
     //if(allexpr)stmt
-    Stmt2(linked_list list, SymTab* T, int D){sTable = T, Depth = D;}
+    Stmt2(linked_list list, SymTab* T, int D)
     int Depth;
     SymTab* sTable;
     string IF = "IF";
     allexpr* allExpression;
     Stmt* statement;
-
-    Stmt2.obj; //class object
-    void crtAllexpr (linked_list list, SymTab* T, int D);
-    void crtStmt (linked_list list, SymTab* T, int D);
-    void crtIf(linked_list list, SymTab* T, int D);
-    void printStmt2(linked_list list, SymTab* T, int D);
+    linked_list* LIST;
+    void crtAllexpr (linked_list* list, SymTab* T, int D);
+    void crtStmt (linked_list* list, SymTab* T, int D);
+    void crtIf(linked_list* list, SymTab* T, int D);
+    void printStmt2(linked_list* list, SymTab* T, int D);
 };
-Stmt2 ()//constructor
+Stmt2(linked_list list, SymTab* T, int D)
 {
-    new allExpression=allexpr;
-    new statement=statement;
-    new sTable=symTab;
-};
+    sTable = T, Depth = D; list=LIST;
+    allExpression= new allexpr (sTable, Depth, list);
+    statement= new Stmt (sTable, Depth, list);
+}
 
 ///////////////////////////////////////////////////////////////////
 class Stmt3{
@@ -58,38 +68,37 @@ class Stmt3{
     Stmt* S1;
     string ELSE = "ELSE";
     Stmt* S2;
-
-    Stmt3.obj; //class object
-    void crtStmtS2(linked_list list, SymTab* T, int D);
-    void crtStmtS1(linked_list list, SymTab* T, int D);
-    void crtElse(linked_list list, SymTab* T, int D);
-    void printStmt3(linked_list list, SymTab* T, int D);
-
+    linked_list* LIST;
+    void crtStmtS2(linked_list* list, SymTab* T, int D);
+    void crtStmtS1(linked_list* list, SymTab* T, int D);
+    void crtElse(linked_list* list, SymTab* T, int D);
+    void printStmt3(linked_list* list, SymTab* T, int D);
 };
-Stmt3 ()//constructor
+Stmt3(linked_list list, SymTab* T, int D)
 {
-    new allExpression=allexpr;
-    new sTable=SymTab;
-    new S1=Stmt;
-    new S2=Stmt;
+    sTable = T, Depth = D; list=LIST;
+    allExpression= new allexpr (sTable, Depth, list);
+    S2= new Stmt (sTable, Depth, list);
+    S1= new Stmt (sTable, Depth, list);
 };
 
 ////////////////////////////////////////////////////////////////////
 class Stmt4{
     //while(allexpr)stmt
-    Stmt4(linked_list list, SymTab* T, int D){sTable = T, Depth = D;}
+    Stmt4(linked_list list, SymTab* T, int D)
     int Depth;
     SymTab* sTable;
-
-    Stmt4.obj; //class object
-    void crtWhile(linked_list list, SymTab* T, int D);
-    void crtAllexpr(linked_list list, SymTab* T, int D);
-    void crtStmt(linked_list list, SymTab* T, int D);
-
+    string While = "WHILE";
+    Stmt* statement;
+    linked_list* LIST;
+    void crtWhile(linked_list* list, SymTab* T, int D);
+    void crtAllexpr(linked_list* list, SymTab* T, int D);
+    void crtStmt(linked_list* list, SymTab* T, int D);
+    void printStmt4(linked_list* list, SymTab* T, int D);
 };
-Stmt4 ()//constructor
+Stmt4(linked_list list, SymTab* T, int D)
 {
-    new sTable=SymTab;
+    sTable = T, Depth = D, list=LIST;
+    allExpression = new allexpr (sTable, Depth, list);
 };
-
 #endif //INC_125PROJ_STMT_H
