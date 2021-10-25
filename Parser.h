@@ -4,7 +4,6 @@
 #include "Lexer.h"
 #include "Stmt.h"
 
-
 class Decl{
     friend class SymTab;
 public:
@@ -27,9 +26,34 @@ public:
     std::string findType(std::string I){ int i=0; while(i<D.size()){if(D[i].id == I){return D[i].type; }}}
 };
 //////////////////////////////////////////////////////////////////////
-class incdecexpr{public: incdecexpr(linked_list list, SymTab* T, int Depth);};
-class factor    {public: factor(linked_list list, SymTab* T, int Depth);};
-class term      {public: term(linked_list list, SymTab* T, int Depth);};
+class incdecexpr //id++ | id-- //no pointer
+        {
+        public: incdecexpr(linked_list list, SymTab* T, int Depth);
+            //identify ID and ++, --
+            *incdecexpr plus;
+            *incdecexpr minus;
+            *incdecexpr token;
+        };
+
+class factor //(allexpr) | incdecexpr | id | num | real | true | false
+        {
+        public: factor(linked_list list, SymTab* T, int Depth);
+            *factor allexpr;
+            *factor indecexpr;
+            *factor ID;
+            *factor real;
+            *factor num;
+            *factor True;
+            *factor False;
+        };
+class term
+        {
+        public: term(linked_list list, SymTab* T, int Depth);
+            *term term;
+            *term factor;
+            string divide [10];
+            string multiply [10];
+        };
 class expr      {public: expr(linked_list list, SymTab* T, int Depth);};
 class rel       {public: rel(linked_list list, SymTab* T, int Depth); };
 class equal     {public: equal(linked_list list, SymTab* T, int Depth);};
@@ -44,7 +68,7 @@ public:
     int Depth;
     Stmt1* S1;
     Stmt2* S2;
-
+    Stmt3* S3;
 };
 
 ////////////////////////////////////////////////////////////////////
@@ -65,8 +89,6 @@ public:
         //Add newly created Decl to sym Table
         // or Add newly created stmt to stmt Vector
     };
-
-
 };
 
 class Prog{
