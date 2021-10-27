@@ -23,14 +23,22 @@ Stmt1(linked_list list, SymTab* T, int D) //constructor
     allExpression= new allexpr(sTable, Depth, list); //goes into function body (
 }
 
-void crtAssign (linked_list* list, SymTab* T, int D)
+void crtAssign (linked_list* list, SymTab* T, int D) //assign-> token ID = token ID
 {
     Token *temp=list->head;
     while (temp->next)
     {
-        if(temp->get_data()== "("
-    }
+        if(temp->ID)
+            temp=temp->next;
 
+        if (temp->get_data()=="=")
+            temp=temp->next;
+
+        if(temp->ID)
+            temp=temp->next;
+
+        split(D); //split function
+    }
 }
 
 void printStmt1(linked_list* list, SymTab* T, int D)
@@ -55,6 +63,26 @@ Stmt2(linked_list list, SymTab* T, int D)
     sTable = T, Depth = D; list=LIST;
     allExpression= new allexpr (sTable, Depth, list);
     statement= new Stmt (sTable, Depth, list);
+}
+
+void crtAllexpr(linked_list* list, SymTab* T, int D)
+{
+    Token *temp=list->head;
+    while (temp->next)
+    {
+    if(temp->get_data()== "IF"
+            temp=temp->next
+
+    if (temp->get_data()=="(") //beginning parenthesis of allexpr
+             temp=temp->next;
+
+    //handling allexpr
+
+    if(temp->get_data()==")")
+             temp=temp->next;
+
+    split(D);
+    }
 }
 
 ///////////////////////////////////////////////////////////////////
