@@ -7,8 +7,10 @@
 #include "Parser.h"
 #include "Linked_list.h"
 #include <list>
+#include <iostream>
 #include "MiscClass.h"
 #include "Statement.h"
+using namespace std;
 class Stmt1{
     //Assign => id = allexpr;
     Stmt1(linked_list* list, SymTab* T, int D);
@@ -22,6 +24,7 @@ class Stmt1{
 };
 Stmt1::Stmt1(linked_list* list, SymTab* T, int D) //constructor
 {
+Public:
     sTable = T; Depth = D; LIST=list;
     ScanCls1();
 }
@@ -29,6 +32,10 @@ void Stmt1::ScanCls1() //id terminal, equal sign, an allexpr, and a semicolon
 {
     Token* temp;
     ID=temp->get_data();
+    if (!sTable->inTable(ID))
+    {
+        cout<<"Symbol not in table"<<endl;
+    }
     int equal=0;
     int semicolon=0;
     if (temp->get_data()=="=") {equal++;}
@@ -68,6 +75,7 @@ class Stmt2 {
 };
 Stmt2::Stmt2(linked_list* list, SymTab* T, int D)
 {
+    Public:
     sTable = T, Depth = D; LIST=list;
     ScanCls2();
 }
@@ -107,6 +115,7 @@ class Stmt3{
 };
 Stmt3::Stmt3(linked_list* list, SymTab* T, int D)
 {
+    Public:
     sTable = T, Depth = D; LIST=list;
     ScanCls3();
 };
@@ -147,6 +156,7 @@ class Stmt4{
 };
 Stmt4::Stmt4(linked_list* list, SymTab* T, int D)
 {
+    Public:
     sTable = T, Depth = D, LIST=list;
     ScanCls4();
 };
