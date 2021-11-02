@@ -115,6 +115,139 @@ depend:
 	$(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles\Makefile.cmake 1
 .PHONY : depend
 
+#=============================================================================
+# Target rules for targets named 125Proj
+
+# Build rule for target.
+125Proj: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 125Proj
+.PHONY : 125Proj
+
+# fast build rule for target.
+125Proj/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\125Proj.dir\build.make CMakeFiles/125Proj.dir/build
+.PHONY : 125Proj/fast
+
+Lexer.obj: Lexer.cpp.obj
+.PHONY : Lexer.obj
+
+# target to build an object file
+Lexer.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\125Proj.dir\build.make CMakeFiles/125Proj.dir/Lexer.cpp.obj
+.PHONY : Lexer.cpp.obj
+
+Lexer.i: Lexer.cpp.i
+.PHONY : Lexer.i
+
+# target to preprocess a source file
+Lexer.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\125Proj.dir\build.make CMakeFiles/125Proj.dir/Lexer.cpp.i
+.PHONY : Lexer.cpp.i
+
+Lexer.s: Lexer.cpp.s
+.PHONY : Lexer.s
+
+# target to generate assembly for a file
+Lexer.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\125Proj.dir\build.make CMakeFiles/125Proj.dir/Lexer.cpp.s
+.PHONY : Lexer.cpp.s
+
+Linked_list.obj: Linked_list.cpp.obj
+.PHONY : Linked_list.obj
+
+# target to build an object file
+Linked_list.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\125Proj.dir\build.make CMakeFiles/125Proj.dir/Linked_list.cpp.obj
+.PHONY : Linked_list.cpp.obj
+
+Linked_list.i: Linked_list.cpp.i
+.PHONY : Linked_list.i
+
+# target to preprocess a source file
+Linked_list.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\125Proj.dir\build.make CMakeFiles/125Proj.dir/Linked_list.cpp.i
+.PHONY : Linked_list.cpp.i
+
+Linked_list.s: Linked_list.cpp.s
+.PHONY : Linked_list.s
+
+# target to generate assembly for a file
+Linked_list.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\125Proj.dir\build.make CMakeFiles/125Proj.dir/Linked_list.cpp.s
+.PHONY : Linked_list.cpp.s
+
+MiscClass.obj: MiscClass.cpp.obj
+.PHONY : MiscClass.obj
+
+# target to build an object file
+MiscClass.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\125Proj.dir\build.make CMakeFiles/125Proj.dir/MiscClass.cpp.obj
+.PHONY : MiscClass.cpp.obj
+
+MiscClass.i: MiscClass.cpp.i
+.PHONY : MiscClass.i
+
+# target to preprocess a source file
+MiscClass.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\125Proj.dir\build.make CMakeFiles/125Proj.dir/MiscClass.cpp.i
+.PHONY : MiscClass.cpp.i
+
+MiscClass.s: MiscClass.cpp.s
+.PHONY : MiscClass.s
+
+# target to generate assembly for a file
+MiscClass.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\125Proj.dir\build.make CMakeFiles/125Proj.dir/MiscClass.cpp.s
+.PHONY : MiscClass.cpp.s
+
+Parser.obj: Parser.cpp.obj
+.PHONY : Parser.obj
+
+# target to build an object file
+Parser.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\125Proj.dir\build.make CMakeFiles/125Proj.dir/Parser.cpp.obj
+.PHONY : Parser.cpp.obj
+
+Parser.i: Parser.cpp.i
+.PHONY : Parser.i
+
+# target to preprocess a source file
+Parser.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\125Proj.dir\build.make CMakeFiles/125Proj.dir/Parser.cpp.i
+.PHONY : Parser.cpp.i
+
+Parser.s: Parser.cpp.s
+.PHONY : Parser.s
+
+# target to generate assembly for a file
+Parser.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\125Proj.dir\build.make CMakeFiles/125Proj.dir/Parser.cpp.s
+.PHONY : Parser.cpp.s
+
+main.obj: main.cpp.obj
+.PHONY : main.obj
+
+# target to build an object file
+main.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\125Proj.dir\build.make CMakeFiles/125Proj.dir/main.cpp.obj
+.PHONY : main.cpp.obj
+
+main.i: main.cpp.i
+.PHONY : main.i
+
+# target to preprocess a source file
+main.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\125Proj.dir\build.make CMakeFiles/125Proj.dir/main.cpp.i
+.PHONY : main.cpp.i
+
+main.s: main.cpp.s
+.PHONY : main.s
+
+# target to generate assembly for a file
+main.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\125Proj.dir\build.make CMakeFiles/125Proj.dir/main.cpp.s
+.PHONY : main.cpp.s
+
 # Help Target
 help:
 	@echo The following are some of the valid targets for this Makefile:
@@ -123,6 +256,22 @@ help:
 	@echo ... depend
 	@echo ... edit_cache
 	@echo ... rebuild_cache
+	@echo ... 125Proj
+	@echo ... Lexer.obj
+	@echo ... Lexer.i
+	@echo ... Lexer.s
+	@echo ... Linked_list.obj
+	@echo ... Linked_list.i
+	@echo ... Linked_list.s
+	@echo ... MiscClass.obj
+	@echo ... MiscClass.i
+	@echo ... MiscClass.s
+	@echo ... Parser.obj
+	@echo ... Parser.i
+	@echo ... Parser.s
+	@echo ... main.obj
+	@echo ... main.i
+	@echo ... main.s
 .PHONY : help
 
 
