@@ -1,0 +1,25 @@
+{
+int x=8;
+while (x>7){
+int sum=15;
+float avg=sum/x;
+}
+}
+
+{
+int five=4; int i=0;
+do
+{
+ five++;
+ i++;
+} while (i<5);
+}
+
+{
+int r=0;
+bool stmt=True;
+if (stmt=True)
+{
+    r++;
+}
+}

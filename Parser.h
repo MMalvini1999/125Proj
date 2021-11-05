@@ -1,7 +1,14 @@
+
+
+//Block object should pass a complete statement into stmt class
+//Class will determine what type of stmt it is, create a new stmt depending on type.
+
 #ifndef INC_125PROJ_PARSER_H
 #define INC_125PROJ_PARSER_H
 #include <vector>
+#include <iostream>
 #include "Lexer.h"
+#include "linked_list.h"
 #include "Statement.h"
 #include "SymTab.h"
 #include "Decl.h"
@@ -26,7 +33,11 @@ public:
 
 class Prog{
 public:
-    Prog(linked_list* LIST){List = LIST; B= new Block(0, List);}
+    Prog(linked_list* LIST){
+        List = LIST;
+        if(List->tail->get_class() == "EOF"){List->popEnd();}
+        B= new Block(0, List);
+    }
     Block* B;
     linked_list* List;
     int Depth = 0;
@@ -35,8 +46,9 @@ public:
 
 class Parser{
 public:
-    Parser(Lexer* L){Lex=L; Data = Lex->List;};
+    Parser(Lexer* L);
     Lexer* Lex;
+    Prog* P;
     linked_list* Data;
     void PrintTree();
 

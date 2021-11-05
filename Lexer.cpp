@@ -46,23 +46,22 @@ Lexer::Lexer(){
                 }
             } line++;
         }
-    }
+    }else{cout<<"file "<<fileName<<" not opened"<<endl;}
     myFile.close();
-    List->push("EOF"," ");
+    List->push("EOF","EOF");
+    nxtTok = List->head;
 }
 Lexer::~Lexer() {delete List;}
 
 Token Lexer::getNextToken() {
-    int i=0;
-    Token* temp = List->head;
-    while (i<bookmark && temp ) {
-        temp = temp->next;
-        i++;
+    Token temp("temp", "temp");
+    if (nxtTok) {
+        temp.Class = nxtTok->get_class();
+        temp.data = nxtTok->get_data();
+        nxtTok = nxtTok->next;
     }
-    Token tok(temp->data, temp->Class);
-    return tok;
+    return temp;
 }
-
 //Checks a potential token of length 1, and compares to next value following it.
 bool Lexer::isTokenL1(string T, char N) {
     //If any unknown character is found isolate and token will be labeled with an error.
@@ -123,7 +122,7 @@ bool Lexer::isTokenL3plus(string input, char N) {
                          "break", "true", "false"}; //Has to be followed by " " ";"
 
     //Checks for anything that can be followed by
-    //a space or open parenthesis(for, while)
+    //a space or open paranthesis(for, while)
     for(int i = 0; i < 9; i++){
         if(input == contain[i] && isChar(N))
             return true;
